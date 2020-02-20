@@ -1,12 +1,12 @@
-###########################################################################################
-#                                                                                         #
-# Evaluator class: Implements the most popular metrics for object detection               #
-#                                                                                         #
-# Developed by: Rafael Padilla (rafael.padilla@smt.ufrj.br)                               #
-#        SMT - Signal Multimedia and Telecommunications Lab                               #
-#        COPPE - Universidade Federal do Rio de Janeiro                                   #
-#        Last modification: Oct 9th 2018                                                 #
-###########################################################################################
+#############################################################################
+#                                                                           #
+# Evaluator class: Implements the most popular metrics for object detection #
+#                                                                           #
+# Developed by: Rafael Padilla (rafael.padilla@smt.ufrj.br)                 #
+#        SMT - Signal Multimedia and Telecommunications Lab                 #
+#        COPPE - Universidade Federal do Rio de Janeiro                     #
+#        Last modification: Oct 9th 2018                                    #
+#############################################################################
 
 import os
 import sys
@@ -15,9 +15,9 @@ from collections import Counter
 import matplotlib.pyplot as plt
 import numpy as np
 
-from BoundingBox import *
-from BoundingBoxes import *
-from utils import *
+from odeval.BoundingBox import *
+from odeval.BoundingBoxes import *
+from odeval.utils import *
 
 
 class Evaluator:

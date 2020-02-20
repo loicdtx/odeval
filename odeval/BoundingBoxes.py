@@ -1,5 +1,5 @@
-from BoundingBox import *
-from utils import *
+from odeval.BoundingBox import *
+from odeval.utils import *
 
 
 class BoundingBoxes:
