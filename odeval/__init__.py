@@ -6,5 +6,3 @@
 ##########################################################################
 __version__ = '0.0.1'
 
-from odeval.BoundingBox import BoundingBox
-from odeval.BoundingBoxes import BoundingBoxes

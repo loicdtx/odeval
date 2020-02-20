@@ -15,8 +15,7 @@ from collections import Counter
 import matplotlib.pyplot as plt
 import numpy as np
 
-from odeval.BoundingBox import *
-from odeval.BoundingBoxes import *
+from odeval.bbox import BoundingBoxes, BoundingBox
 from odeval.utils import *
 
 
