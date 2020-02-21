@@ -100,7 +100,7 @@ def GetPascalVOCMetrics(boundingboxes,
             iouMax = sys.float_info.min
             for j in range(len(gt)):
                 # print('Ground truth gt => %s' % (gt[j][3],))
-                iou = iou(dects[d][3], gt[j][3])
+                iou = _iou(dects[d][3], gt[j][3])
                 if iou > iouMax:
                     iouMax = iou
                     jmax = j
@@ -361,7 +361,7 @@ def _getAllIOUs(reference, detections):
     # img = np.zeros((200,200,3), np.uint8)
     for d in detections:
         bb = d.getAbsoluteBoundingBox(BBFormat.XYX2Y2)
-        iou = iou(bbReference, bb)
+        iou = _iou(bbReference, bb)
         # Show blank image with the bounding boxes
         # img = add_bb_into_image(img, d, color=(255,0,0), thickness=2, label=None)
         # img = add_bb_into_image(img, reference, color=(0,255,0), thickness=2, label=None)
@@ -371,7 +371,7 @@ def _getAllIOUs(reference, detections):
     # cv2.destroyWindow("comparing")
     return sorted(ret, key=lambda i: i[0], reverse=True)  # sort by iou (from highest to lowest)
 
-def iou(boxA, boxB):
+def _iou(boxA, boxB):
     # if boxes dont intersect
     if _boxesIntersect(boxA, boxB) is False:
         return 0
