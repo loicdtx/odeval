@@ -1,6 +1,6 @@
 #############################################################################
 #                                                                           #
-# Evaluator class: Implements the most popular metrics for object detection #
+# class: Implements the most popular metrics for object detection #
 #                                                                           #
 # Developed by: Rafael Padilla (rafael.padilla@smt.ufrj.br)                 #
 #        SMT - Signal Multimedia and Telecommunications Lab                 #
@@ -100,7 +100,7 @@ def GetPascalVOCMetrics(boundingboxes,
             iouMax = sys.float_info.min
             for j in range(len(gt)):
                 # print('Ground truth gt => %s' % (gt[j][3],))
-                iou = Evaluator.iou(dects[d][3], gt[j][3])
+                iou = iou(dects[d][3], gt[j][3])
                 if iou > iouMax:
                     iouMax = iou
                     jmax = j
@@ -124,9 +124,9 @@ def GetPascalVOCMetrics(boundingboxes,
         prec = np.divide(acc_TP, (acc_FP + acc_TP))
         # Depending on the method, call the right implementation
         if method == MethodAveragePrecision.EveryPointInterpolation:
-            [ap, mpre, mrec, ii] = Evaluator.CalculateAveragePrecision(rec, prec)
+            [ap, mpre, mrec, ii] = CalculateAveragePrecision(rec, prec)
         else:
-            [ap, mpre, mrec, _] = Evaluator.ElevenPointInterpolatedAP(rec, prec)
+            [ap, mpre, mrec, _] = ElevenPointInterpolatedAP(rec, prec)
         # add class result in the dictionary to be returned
         r = {
             'class': c,
@@ -361,7 +361,7 @@ def _getAllIOUs(reference, detections):
     # img = np.zeros((200,200,3), np.uint8)
     for d in detections:
         bb = d.getAbsoluteBoundingBox(BBFormat.XYX2Y2)
-        iou = Evaluator.iou(bbReference, bb)
+        iou = iou(bbReference, bb)
         # Show blank image with the bounding boxes
         # img = add_bb_into_image(img, d, color=(255,0,0), thickness=2, label=None)
         # img = add_bb_into_image(img, reference, color=(0,255,0), thickness=2, label=None)
@@ -373,10 +373,10 @@ def _getAllIOUs(reference, detections):
 
 def iou(boxA, boxB):
     # if boxes dont intersect
-    if Evaluator._boxesIntersect(boxA, boxB) is False:
+    if _boxesIntersect(boxA, boxB) is False:
         return 0
-    interArea = Evaluator._getIntersectionArea(boxA, boxB)
-    union = Evaluator._getUnionAreas(boxA, boxB, interArea=interArea)
+    interArea = _getIntersectionArea(boxA, boxB)
+    union = _getUnionAreas(boxA, boxB, interArea=interArea)
     # intersection over union
     iou = interArea / union
     assert iou >= 0
@@ -404,10 +404,10 @@ def _getIntersectionArea(boxA, boxB):
     return (xB - xA + 1) * (yB - yA + 1)
 
 def _getUnionAreas(boxA, boxB, interArea=None):
-    area_A = Evaluator._getArea(boxA)
-    area_B = Evaluator._getArea(boxB)
+    area_A = _getArea(boxA)
+    area_B = _getArea(boxB)
     if interArea is None:
-        interArea = Evaluator._getIntersectionArea(boxA, boxB)
+        interArea = _getIntersectionArea(boxA, boxB)
     return float(area_A + area_B - interArea)
 
 def _getArea(box):
